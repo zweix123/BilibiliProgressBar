@@ -1,6 +1,11 @@
+- [效果](#效果)
+- [使用](#使用)
+- [介绍](#介绍)
+- [鸣谢](#鸣谢)
+- [Log](#log)
+
 # 效果
 ![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/img/ege.png)
-
 
 # 使用
 
@@ -77,4 +82,4 @@
 
 # Log
 
-+ 在蒋炎岩老师的视频好像出问题，后续再改bug
++ [ ] 在像蒋炎岩老师那样的合集视频好像不能生效，计划后续修改此bug
