@@ -1,18 +1,23 @@
+# 目录
+- [目录](#目录)
 - [效果](#效果)
 - [使用](#使用)
 - [介绍](#介绍)
 - [鸣谢](#鸣谢)
 - [Log](#log)
 
+
+
 # 效果
-![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/img/ege.png)
+![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/img/ege1.png)
+![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/img/ege2.png)
 
 # 使用
 
 0. 需要了解浏览器油猴脚本插件的使用方式
 1. 在油猴中新建用户脚本，将项目中的js代码覆盖进去
 
-+ 油猴脚本会自动识别B站合集类视频的网址并运行脚本
++ 油猴脚本会自动识别B站合集类、订阅类视频的网址并运行脚本
 + 代码逻辑见代码注释
 
 # 介绍
@@ -82,4 +87,4 @@
 
 # Log
 
-+ [ ] 在像蒋炎岩老师那样的合集视频好像不能生效，计划后续修改此bug
++ [x] 在像蒋炎岩老师那样的合集视频好像不能生效，计划后续修改此bug(2023.02.14修改此bug)
