@@ -2,8 +2,8 @@
 众所周知，哔哩哔哩是一个学习的地方，这个脚本能为哔哩哔哩合集类、订阅类视频提供一个总进度条，让你的学习不再迷茫
 
 ## Result
-![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/static/imgs/BilibiliProgressBar/res1.png)
-![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/static/imgs/BilibiliProgressBar/res2.png)
+![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/source/image/result_csapp.png)  
+![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/source/image/result_jyy.png)
 
 ## Pre
 需要会使用油猴脚本
@@ -25,6 +25,3 @@
 + 在开发过程中特别是关于Javascript的问题受到学校学长的很多帮助。
 
 在此一并表示感谢
-
-# else
-在使用哔哩哔哩过程中，我还有个需求就是想知道我的“稍后再看”中，所有视频的总时长是多长，于是也写了类似的脚本，放在这个项目下。效果和总进度条类似。

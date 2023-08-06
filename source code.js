@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         B站合集总进度条
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  用于B站的合集在时间维度上的总进度，设计时尽可能解耦，利于个性化修改
 // @author       zweix
 // @match        https://www.bilibili.com/video/*
@@ -17,27 +17,34 @@
 
     // javascript:( //function () {
 
-    window.onload = function () {  // like main function
-        let number = 5;  // 等待页面加载时间, 是一个经验值, 如果不合适可以修改
+    window.onload = function () {
+        let number = 3;  // 等待页面加载时间，经验值
 
-        void function (time) {  // 匿名的sleep函数, 用于等网页加载完, 照猫画虎写的
+        void function (time) {  // 匿名sleep函数，用于等待网页加载完
             return new Promise((resolve) => setTimeout(resolve, time));
         }(number * 1000).then(() => {
-            let list = document.getElementsByClassName('cur-page');  // 获得分P栏的表头, 普通视频长度为0, 以此判断是否运行程序
-            if (list.length == 0) return;
-            solve();  // 竞赛写法
-        })
+            // 通过检测分P栏的表头长度区分是否是有分P的视频
+            if (document.getElementsByClassName('cur-page').length == 0) return;
+
+            console.log("start handle.");
+            mainBilibiliProgressBar();  // 竞赛写法
+        });
     }
 
-    function get_info(index) {  // 对应一个索引(对应集数), 获得从开始到当前的时间
+    /**
+     * 获得对应集数的信息
+     * @param {int} index 第几集
+     * @returns
+     */
+    function get_info(index) {
         let hour = 0, minute = 0, second = 0;
 
         // 区分合集类视频和订阅类视频
         let tarclass = "";
         if (document.getElementsByClassName('video-sections-head_desc').length != 0) {
-            tarclass = 'video-episode-card__info-duration'
+            tarclass = 'video-episode-card__info-duration';
         } else {
-            tarclass = 'duration'
+            tarclass = 'duration';
         }
 
         for (let i = 0; i < index; ++i) {
@@ -50,15 +57,17 @@
             minute += parseInt(time_tuple[1]);
             second += parseInt(time_tuple[2]);
         }
-        minute += Math.floor(second / 60); second %= 60;
-        hour += Math.floor(minute / 60); minute %= 60;
+        minute += Math.floor(second / 60);
+        second %= 60;
+        hour += Math.floor(minute / 60);
+        minute %= 60;
 
         let sum_time = hour * 3600 + minute * 60 + second;
 
         return { index, hour, minute, second, sum_time }
     }
 
-    function solve() {
+    function mainBilibiliProgressBar() {
         // 分P栏的表头, 利用正则表达式提取出想要的信息
         let cur_index = parseInt(document
             .getElementsByClassName('cur-page')[0]
@@ -67,14 +76,22 @@
             .getElementsByClassName('cur-page')[0]
             .innerHTML.match(/\/(\d+)/)[1]);
 
-        let cur_info = get_info(cur_index)
-        let end_info = get_info(end_index)
+        let cur_info = get_info(cur_index);
+        let end_info = get_info(end_index);
+        let remain_time = end_info.sum_time - cur_info.sum_time;
+        let remain_minute = (remain_time / 60);
+        let remain_hour = (remain_minute / 60);
+        remain_minute %= 60;
 
-        show(cur_info.hour + "小时" + cur_info.minute + "分钟", (cur_info.sum_time / end_info.sum_time * 100).toFixed(1))
+        const had_time_str = cur_info.hour.toString() + "h" + cur_info.minute.toString() + "m";
+        const had_rate_str = (cur_info.sum_time / end_info.sum_time * 100).toFixed(1).toString() + "%";
+        const remain_time_str = parseInt(remain_hour).toString() + "h" + parseInt(remain_minute).toString() + "m";
+
+        handle_button(had_time_str, had_rate_str, remain_time_str);
     }
 
-    function show(sum_time, percentage) {
-        let plain = document.getElementsByClassName('video-data')[0];// 确定位置
+    function handle_button(had_time_str, had_rate_str, remain_time_str) {
+        let plain = document.getElementsByClassName('video-info-detail')[0];// 确定位置
         let button_var = document.getElementById('button_tag_zweix');       // 原因见下
         // 因为这个地方要更新, 这里的策略是如果没有就创建, 没有就在其基础上修改
         let isNULL = (button_var === null);
@@ -91,10 +108,10 @@
                 '    padding:0.5rem;\n' +
                 '    cursor: pointer;\n' +
                 '    ';
-            button_var.addEventListener("click", solve);  // 更新方案, 手动点击按钮来更新, 为何不采用更自动的方案见README
+            button_var.addEventListener("click", mainBilibiliProgressBar);  // 更新方案, 手动点击按钮来更新, 为何不采用更自动的方案见README
         }
 
-        button_var.innerHTML = "共用时" + sum_time + " 已完成" + percentage + "%";
+        button_var.innerHTML = "已看" + had_time_str + "（" + had_rate_str + "）, 还剩" + remain_time_str;
 
         if (isNULL) plain.appendChild(button_var);
     }
