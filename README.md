@@ -2,8 +2,8 @@
 众所周知，哔哩哔哩是一个学习的地方，这个脚本能为哔哩哔哩合集类、订阅类视频提供一个总进度条，让你的学习不再迷茫
 
 ## Result
-![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/source/image/result_csapp.png)  
-![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/source/image/result_jyy.png)
+![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/resource/image/result_csapp.png)  
+![](https://cdn.jsdelivr.net/gh/zweix123/BilibiliProgressBar/resource/image/result_jyy.png)
 
 ## Pre
 需要会使用油猴脚本

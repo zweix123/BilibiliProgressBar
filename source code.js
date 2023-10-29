@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         B站合集总进度条
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      3.1415926
 // @description  用于B站的合集在时间维度上的总进度，设计时尽可能解耦，利于个性化修改
 // @author       zweix
 // @match        https://www.bilibili.com/video/*
@@ -9,12 +9,11 @@
 // @grant        none
 
 // ==/UserScript==
-// @require      file://C:\Users\zweix\Projects\BilibiliProgressBar\code.js
+// @require      file://C:\Users\zweix\Projects\BilibiliProgressBar\source code.js
 
 
 (function () {
-    'use strict';
-
+    // 'use strict';
     // javascript:( //function () {
 
     window.onload = function () {
@@ -26,8 +25,8 @@
             // 通过检测分P栏的表头长度区分是否是有分P的视频
             if (document.getElementsByClassName('cur-page').length == 0) return;
 
-            console.log("start handle.");
-            mainBilibiliProgressBar();  // 竞赛写法
+            console.log("BilibiliProgressBar start process.");
+            mainBilibiliProgressBar();
         });
     }
 
@@ -78,6 +77,7 @@
 
         let cur_info = get_info(cur_index);
         let end_info = get_info(end_index);
+
         let remain_time = end_info.sum_time - cur_info.sum_time;
         let remain_minute = (remain_time / 60);
         let remain_hour = (remain_minute / 60);
@@ -117,6 +117,4 @@
     }
 
     //})();
-
-    // Your code here...
 })();
